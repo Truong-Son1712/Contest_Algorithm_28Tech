@@ -1,0 +1,55 @@
+#include<iostream>
+#include<string>
+#include<sstream>
+#include<vector>
+
+using namespace std;
+
+string mk(string s) 
+{
+	string pass;
+	string world;
+	stringstream ss(s);
+	vector<string> v;
+	while(getline(ss,world,'/')) {
+		v.push_back(world); 
+	}
+	if(v[0][0]=='0')v[0].erase(v[0].begin());
+	pass+=v[0]; 
+	if(v[1][0]=='0')v[1].erase(v[1].begin());
+	pass+=v[1]; 
+	pass+=v[2];
+	return pass; 
+}
+string chuyenthuong(string s) 
+{
+	for(int i=0;i<s.size();i++) s[i]=tolower(s[i]); 
+	return s; 
+}
+string chuyenmail(vector<string> v) 
+{
+	string mail;
+	mail+=chuyenthuong(v[v.size()-2]); 
+	for(int i=0;i<v.size()-2;i++) mail+=tolower(v[i][0]);
+	mail+="@xyz.edu.vn";
+	return mail; 
+}
+int main() 
+{
+	int n; cin>>n;
+	cin.ignore(1);
+	while(n--){
+		string s;getline(cin,s);
+		string world;
+		stringstream ss(s);
+		vector<string> v;
+		while(ss>>world){
+			v.push_back(world); 
+		} 
+		string mail=chuyenmail(v);
+		string pass=mk(v[v.size()-1]); 
+		cout<<mail<<endl;
+		cout<<pass<<endl; 
+	} 
+	return 0; 
+}
